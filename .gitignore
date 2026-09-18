@@ -42,3 +42,6 @@ CLAUDE.md
 ### Secrets ###
 .env
 .security-incident/
+
+### Local-only docs ###
+docs/CLOUDFLARE_TUNNEL.md

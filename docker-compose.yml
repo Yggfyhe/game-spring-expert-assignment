@@ -43,6 +43,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-game_expert}
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      WS_ALLOWED_ORIGINS: ${WS_ALLOWED_ORIGINS:-http://localhost:*,http://127.0.0.1:*}
     ports:
       - "127.0.0.1:8080:8080"
     depends_on:
@@ -63,6 +64,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-game_expert}
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      WS_ALLOWED_ORIGINS: ${WS_ALLOWED_ORIGINS:-http://localhost:*,http://127.0.0.1:*}
     ports:
       - "127.0.0.1:8081:8080"
     depends_on:
