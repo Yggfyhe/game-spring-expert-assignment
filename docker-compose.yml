@@ -3,6 +3,7 @@ services:
     image: mysql:8.0
     container_name: webcraft-mysql
     restart: unless-stopped
+    command: --log-bin-trust-function-creators=1
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-game_expert}
@@ -29,6 +30,46 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  app-a:
+    build: .
+    container_name: webcraft-app-a
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-game_expert}
+      MYSQL_USER: ${MYSQL_USER:-game_expert}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-game_expert}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  app-b:
+    build: .
+    container_name: webcraft-app-b
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-game_expert}
+      MYSQL_USER: ${MYSQL_USER:-game_expert}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-game_expert}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8081:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 volumes:
   mysql-data:
