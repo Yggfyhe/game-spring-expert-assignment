@@ -7,7 +7,7 @@
 ![WebSocket](https://img.shields.io/badge/WebSocket-realtime-blue)
 ![Docker](https://img.shields.io/badge/Docker-multi--instance-2496ED)
 
- **WebCraft**의 Spring Boot 백엔드 구현체입니다. 게임 클라이언트/엔진(`webcraft-engine`)은 의존성으로 제공되고, 이 저장소는 플레이어 등록, 월드 생성/조회, 채팅, WebSocket 실시간 통신, 접속 상태 관리, 멀티 서버 채팅 릴레이 등 **백엔드 전체를 Lv1~Lv20 과제 단위로 구현**한 결과물입니다.
+ **내일배움캠프 단기심화 9기 숙련주차**의 Spring Boot 백엔드 구현체입니다. 게임 클라이언트/엔진(`webcraft-engine`)은 의존성으로 제공되고(fork), 이 저장소는 플레이어 등록, 월드 생성/조회, 채팅, WebSocket 실시간 통신, 접속 상태 관리, 멀티 서버 채팅 릴레이 등 **백엔드 전체를 Lv1~Lv20 과제 단위로 구현**한 결과물입니다.
 
 ## 실행 화면
 
@@ -23,7 +23,6 @@
 - [빌드 & 실행](#빌드--실행)
 - [구현 상세: Lv1 ~ Lv20](#구현-상세-lv1--lv20)
 - [트러블슈팅 / 설계 고민](#트러블슈팅--설계-고민)
-- [참고 링크](#참고-링크)
 
 ## 기술 스택
 
@@ -206,10 +205,4 @@ docker compose up -d --build
 - **멀티 서버에서 채팅이 한쪽 서버에만 도착하는 문제 (Lv20)**: `WorldSessionRegistry`가 서버 인스턴스별 로컬 상태라는 점 때문에, 단순히 저장 후 로컬 브로드캐스트만 하면 다른 인스턴스에 붙은 사용자는 채팅을 받지 못합니다. `ChatRelay` + Redis Pub/Sub로 모든 인스턴스가 같은 채널을 구독하게 하고, `ChatDelivery`가 `webcraft.chat.pubsub-enabled` 설정으로 단일 서버/멀티 서버 경로를 스위칭하도록 분리해, 기존 `ChatWsHandler` 코드를 건드리지 않고 확장했습니다. `docker-compose.yml`에 `app-a`/`app-b` 두 인스턴스를 실제로 띄워 이 동작을 눈으로 검증했습니다.
 - **인프라 보안**: 개발 중 `docker-compose.yml`의 DB/캐시 포트를 `0.0.0.0`에 게시해 둔 상태로 두면, 외부 네트워크 환경(포트포워딩/DMZ 등)에 따라 실수로 인터넷에 노출될 수 있다는 걸 직접 겪었습니다. 이후 모든 포트를 `127.0.0.1`에만 바인딩하고, 자격증명은 저장소에 커밋되지 않는 `.env`로 분리했습니다.
 
-## 참고 링크
 
-- 완성된 게임 데모: https://f-api.github.io/game-spring-api-docs/expert/
-- 에셋 갤러리: https://f-api.github.io/game-spring-api-docs/expert/#assets
-- API 문서: https://f-api.github.io/game-spring-api-docs/expert/api-docs.html
-
-이 프로젝트의 게임 클라이언트/엔진은 [`io.github.f-api:webcraft-engine`](https://github.com/f-api)에서 제공되었습니다. 백엔드(Controller/Service/Repository, WebSocket 메시지 처리, Redis/MySQL 연동 등)는 이 저장소에서 Lv1~Lv20 과제로 직접 구현했습니다.
