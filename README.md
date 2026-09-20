@@ -7,7 +7,7 @@
 ![WebSocket](https://img.shields.io/badge/WebSocket-realtime-blue)
 ![Docker](https://img.shields.io/badge/Docker-multi--instance-2496ED)
 
-마인크래프트 유사 게임 **WebCraft**의 Spring Boot 백엔드 구현체입니다. 게임 클라이언트/엔진(`webcraft-engine`)은 의존성으로 제공되고, 이 저장소는 플레이어 등록, 월드 생성/조회, 채팅, WebSocket 실시간 통신, 접속 상태 관리, 멀티 서버 채팅 릴레이 등 **백엔드 전체를 Lv1~Lv20 과제 단위로 구현**한 결과물입니다.
+ **WebCraft**의 Spring Boot 백엔드 구현체입니다. 게임 클라이언트/엔진(`webcraft-engine`)은 의존성으로 제공되고, 이 저장소는 플레이어 등록, 월드 생성/조회, 채팅, WebSocket 실시간 통신, 접속 상태 관리, 멀티 서버 채팅 릴레이 등 **백엔드 전체를 Lv1~Lv20 과제 단위로 구현**한 결과물입니다.
 
 ## 실행 화면
 
