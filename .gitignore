@@ -45,3 +45,6 @@ CLAUDE.md
 
 ### Local-only docs ###
 docs/CLOUDFLARE_TUNNEL.md
+
+### Logs ###
+logs/
